@@ -35,8 +35,17 @@ angular.module('Eggly', [
       cancelEditing();
     }
 
+    function filterCategories(bookmark) {
+      if ($scope.currentCategory === null) {
+        return true
+      } else {
+        return ( bookmark.category === $scope.currentCategory.name );
+      }
+    }
+
     $scope.setCurrentCategory = setCurrentCategory;
     $scope.isCurrentCategory = isCurrentCategory;
+    $scope.filterCategories = filterCategories;
 
     //Creating and Editing States
     function startCreating() {
