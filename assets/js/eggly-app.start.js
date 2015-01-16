@@ -47,6 +47,38 @@ angular.module('Eggly', [
     $scope.isCurrentCategory = isCurrentCategory;
     $scope.filterCategories = filterCategories;
 
+    function createBookmark(bookmark) {
+      bookmark.id = $scope.bookmarks.length;
+      //bookmark.category = $scope.currentCategory.name;
+      $scope.bookmarks.push(bookmark);
+
+      resetCreateForm();
+    }
+
+    function setEditedBookmark(bookmark) {
+      $scope.editedBookmark = angular.copy(bookmark);
+    }
+
+    function updateBookmark(bookmark) {
+      var index = _.findIndex($scope.bookmarks, function(b){
+        return b.id === bookmark.id;
+      });
+
+      $scope.bookmarks[index] = bookmark;
+      $scope.editedBookmark = null;
+      $scope.isEditing = false;
+    }
+
+    function deleteBookmark(bookmark) {
+      _.remove($scope.bookmarks, function(b){
+        return b.id === bookmark.id;
+      });
+    }
+
+    function isSelectedBookmark(bookmarkID) {
+      return $scope.editedBookmark !== null && $scope.editedBookmark.id === bookmarkID;
+    }
+
     //Creating and Editing States
     function startCreating() {
       $scope.isCreating = true;
@@ -86,36 +118,11 @@ angular.module('Eggly', [
       }
     }
 
-    function createBookmark(bookmark) {
-      bookmark.id = $scope.bookmarks.length;
-      //bookmark.category = $scope.currentCategory.name;
-      $scope.bookmarks.push(bookmark);
-
-      resetCreateForm();
-    }
-
-    function setEditedBookmark(bookmark) {
-      $scope.editedBookmark = angular.copy(bookmark);
-    }
-
-    function updateBookmark(bookmark) {
-      var index = _.findIndex($scope.bookmarks, function(b){
-        return b.id === bookmark.id;
-      });
-
-      $scope.bookmarks[index] = bookmark;
-      $scope.editedBookmark = null;
-      $scope.isEditing = false;
-    }
-
-    function isSelectedBookmark(bookmarkID) {
-      return $scope.editedBookmark !== null && $scope.editedBookmark.id === bookmarkID;
-    }
-
     $scope.createBookmark = createBookmark;
     $scope.editedBookmark = null;
     $scope.setEditedBookmark = setEditedBookmark;
     $scope.updateBookmark = updateBookmark;
+    $scope.deleteBookmark = deleteBookmark;
     $scope.isSelectedBookmark = isSelectedBookmark;
 
     $scope.startCreating = startCreating;
