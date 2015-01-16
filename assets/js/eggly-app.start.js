@@ -65,6 +65,7 @@ angular.module('Eggly', [
 
     function cancelEditing() {
       $scope.isEditing = false;
+      $scope.editedBookmark = null;
     }
 
     function shouldShowCreating() {
@@ -93,7 +94,29 @@ angular.module('Eggly', [
       resetCreateForm();
     }
 
+    function setEditedBookmark(bookmark) {
+      $scope.editedBookmark = angular.copy(bookmark);
+    }
+
+    function updateBookmark(bookmark) {
+      var index = _.findIndex($scope.bookmarks, function(b){
+        return b.id === bookmark.id;
+      });
+
+      $scope.bookmarks[index] = bookmark;
+      $scope.editedBookmark = null;
+      $scope.isEditing = false;
+    }
+
+    function isSelectedBookmark(bookmarkID) {
+      return $scope.editedBookmark !== null && $scope.editedBookmark.id === bookmarkID;
+    }
+
     $scope.createBookmark = createBookmark;
+    $scope.editedBookmark = null;
+    $scope.setEditedBookmark = setEditedBookmark;
+    $scope.updateBookmark = updateBookmark;
+    $scope.isSelectedBookmark = isSelectedBookmark;
 
     $scope.startCreating = startCreating;
     $scope.cancelCreating = cancelCreating;
