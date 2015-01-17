@@ -21,7 +21,4 @@ angular.module('categories', [
   .controller('CategoriesCtrl', function CategoriesCtrl($scope){
 
   })
-  .controller('BookmarksCtrl', function BookmarksCtrl($scope){
-
-  })
 ;
