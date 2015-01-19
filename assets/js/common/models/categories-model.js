@@ -30,6 +30,11 @@ angular.module('eggly.models.categories', [])
 
       if( categories ) {
         deferred.resolve(findCategory());
+      } else {
+        model.getCategories()
+          .then(function(result){
+            deferred.resolve(findCategory());
+          });
       }
       return deferred.promise;
     };
