@@ -1,4 +1,5 @@
-<div ng-class="{'active':isSelectedBookmark(bookmark.id)}" ng-repeat="bookmark in bookmarks | filter : filterCategories">
+<h1>{{bookmarksListCtrl.currentCategoryName}}</h1>
+<div ng-class="{'active':isSelectedBookmark(bookmark.id)}" ng-repeat="bookmark in bookmarksListCtrl.bookmarks | filter : filterCategories">
   <button type="button" ng-click="deleteBookmark(bookmark);" class="close">&times;</button>
   <button type="button" ng-click="setEditedBookmark(bookmark); startEditing();" class="btn btn-link">
     <span class="glyphicon glyphicon-pencil"></span>
